@@ -14,4 +14,5 @@ urlpatterns = [
     path('logout/', BlacklistTokenUpdateView.as_view(), name='logout'),
 
     path('books/', include('api.books.urls')),
+    path('comments/', include('api.comments.urls')),
 ]

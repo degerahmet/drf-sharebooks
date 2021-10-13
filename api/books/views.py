@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticated,AllowAny
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter,OrderingFilter
 
-from .serializers import BookSerializer
+from .serializers import BookSerializer,BookDetailSerializer
 from core.models import Book
 from api.permissions import IsContentAuthor
 
@@ -38,7 +38,7 @@ class BookUpdateAPIView(RetrieveUpdateAPIView):
     lookup_field = 'id'
 
 class BookDetailAPIView(RetrieveAPIView):
-    serializer_class = BookSerializer
+    serializer_class = BookDetailSerializer
     queryset = Book.objects.all()
     permission_classes = [AllowAny]
 
