@@ -12,4 +12,6 @@ urlpatterns = [
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('register/', RegisterAPIView.as_view(), name='register'),
     path('logout/', BlacklistTokenUpdateView.as_view(), name='logout'),
+
+    path('books/', include('api.books.urls')),
 ]
