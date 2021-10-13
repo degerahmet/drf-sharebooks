@@ -1,14 +1,15 @@
 
-from rest_framework.generics import CreateAPIView,ListAPIView
+from rest_framework.generics import CreateAPIView,ListAPIView,RetrieveUpdateAPIView
 from rest_framework.permissions import IsAuthenticated,AllowAny
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter,OrderingFilter
 
 from .serializers import BookSerializer
 from core.models import Book
+from api.permissions import IsContentAuthor
 
 
-class CreateBookAPIView(CreateAPIView):
+class BookCreateAPIView(CreateAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = BookSerializer
 
@@ -27,3 +28,11 @@ class BookListAPIView(ListAPIView):
     filterset_fields = ['category','writer','publisher']
     queryset = Book.objects.all()
 
+
+
+class BookUpdateAPIView(RetrieveUpdateAPIView):
+    serializer_class = BookSerializer
+    queryset = Book.objects.all()
+    permission_classes = [IsContentAuthor]
+
+    lookup_field = 'id'
