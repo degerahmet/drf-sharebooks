@@ -1,5 +1,5 @@
 
-from rest_framework.generics import CreateAPIView,ListAPIView,RetrieveUpdateAPIView
+from rest_framework.generics import CreateAPIView,ListAPIView,RetrieveUpdateAPIView,RetrieveAPIView
 from rest_framework.permissions import IsAuthenticated,AllowAny
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter,OrderingFilter
@@ -37,7 +37,7 @@ class BookUpdateAPIView(RetrieveUpdateAPIView):
 
     lookup_field = 'id'
 
-class BookDetailAPIView(RetrieveUpdateAPIView):
+class BookDetailAPIView(RetrieveAPIView):
     serializer_class = BookSerializer
     queryset = Book.objects.all()
     permission_classes = [AllowAny]
