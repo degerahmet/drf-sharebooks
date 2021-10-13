@@ -11,6 +11,7 @@ class BookSerializer(serializers.ModelSerializer):
             'author',
             'name',
             'writer',
+            'get_image',
             'place_of_publication',
             'date_of_publication',
             'publisher',
