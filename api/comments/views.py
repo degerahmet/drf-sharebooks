@@ -4,7 +4,6 @@ from rest_framework.permissions import IsAuthenticated,AllowAny
 
 from .serializers import CommentSerializer
 from core.models import Book
-from api.permissions import IsContentAuthor
 
 
 class CommentCreateAPIView(CreateAPIView):

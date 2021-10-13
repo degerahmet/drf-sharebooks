@@ -43,3 +43,8 @@ class BookDetailAPIView(RetrieveAPIView):
     permission_classes = [AllowAny]
 
     lookup_field = 'id'
+
+class BestFiveBookListAPIView(ListAPIView):
+    permission_classes = [AllowAny]
+    serializer_class = BookSerializer
+    queryset = Book.objects.all().order_by("-rating")[:5]

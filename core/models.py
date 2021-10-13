@@ -4,7 +4,7 @@ from users.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-
+from django.conf import settings
 
 class Writer(models.Model):
     name        = models.CharField(max_length=200)
@@ -29,6 +29,7 @@ class Book(models.Model):
     author = models.ForeignKey(User,on_delete=models.CASCADE,related_name="books")
     name = models.CharField(max_length=200)
     writer = models.ForeignKey(Writer,on_delete=models.CASCADE,related_name="books")
+    image = models.ImageField(upload_to='uploads/',blank=True,null=True)
     place_of_publication = models.CharField(max_length=200,null=True,blank=True)
     date_of_publication = models.DateField()
     publisher = models.ForeignKey(Publisher,on_delete=models.CASCADE,related_name="books")
@@ -37,6 +38,11 @@ class Book(models.Model):
     rating = models.FloatField(editable=False,null=True,blank=True,default=0)
     rate_counter = models.IntegerField(default=0,editable=False)
 
+
+    def get_image(self):
+        if self.image:
+            return settings.SITE_URL + self.image.url
+        return ''
 
     def __str__(self):
         return f"{self.name}"
@@ -60,3 +66,8 @@ def add_book_rate(sender, instance, created, **kwargs):
         instance.book.rating = new_rating
         instance.book.rate_counter = counter
         instance.book.save()
+
+
+class Favorite(models.Model):
+    book = models.ForeignKey(Book,on_delete=models.CASCADE,related_name="favorites")
+    user = models.ForeignKey(User,on_delete=models.CASCADE,related_name="favorites")

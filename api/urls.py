@@ -15,4 +15,5 @@ urlpatterns = [
 
     path('books/', include('api.books.urls')),
     path('comments/', include('api.comments.urls')),
+    path('favorites/', include('api.favorites.urls')),
 ]
