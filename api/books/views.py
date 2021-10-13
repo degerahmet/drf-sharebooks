@@ -36,3 +36,10 @@ class BookUpdateAPIView(RetrieveUpdateAPIView):
     permission_classes = [IsContentAuthor]
 
     lookup_field = 'id'
+
+class BookDetailAPIView(RetrieveUpdateAPIView):
+    serializer_class = BookSerializer
+    queryset = Book.objects.all()
+    permission_classes = [AllowAny]
+
+    lookup_field = 'id'
