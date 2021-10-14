@@ -3,7 +3,7 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
-from .views import RegisterAPIView,BlacklistTokenUpdateView
+from .views import RegisterAPIView,BlacklistTokenUpdateView,WriterListAPIView,PublisherListAPIView
 
 from django.urls import path, include
 
@@ -12,6 +12,8 @@ urlpatterns = [
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('register/', RegisterAPIView.as_view(), name='register'),
     path('logout/', BlacklistTokenUpdateView.as_view(), name='logout'),
+    path('writers/', WriterListAPIView.as_view(), name='writers'),
+    path('publishers/', PublisherListAPIView.as_view(), name='publishers'),
 
     path('books/', include('api.books.urls')),
     path('comments/', include('api.comments.urls')),

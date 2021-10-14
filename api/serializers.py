@@ -2,6 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth import authenticate
 from django.contrib.auth.password_validation import validate_password
 
+from core.models import Writer,Publisher
 from users.models import User
 
 class UserSerializer(serializers.ModelSerializer):
@@ -54,3 +55,20 @@ class RegisterSerializer(serializers.ModelSerializer):
 
 class RefreshTokenSerializer(serializers.Serializer):
     refresh_token = serializers.CharField(max_length=500, required=True)
+
+class WriterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Writer
+        fields = [
+            'id',
+            'name',
+            'description'
+        ]
+
+class PublisherSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Publisher
+        fields = [
+            'id',
+            'title',
+        ]

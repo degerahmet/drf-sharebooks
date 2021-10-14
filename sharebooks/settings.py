@@ -27,7 +27,7 @@ SECRET_KEY = '1w688vam=@sh)237g($!r6dl0iu@k8^6)(k*$9kq@-hz2ya810'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["degerahmet.pythonanywhere.com"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition

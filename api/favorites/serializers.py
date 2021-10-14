@@ -10,3 +10,15 @@ class FavoriteSerializer(serializers.ModelSerializer):
             'user',
             )
         extra_kwargs = {'user': {'read_only': True}}
+    
+    def create(self,validated_data):
+        user =  self.context['request'].user
+        book = validated_data["book"]
+
+        favorite = Favorite.objects.filter(user=user,book=book)
+
+        if favorite:
+            raise serializers.ValidationError({"error": "Bu kitap zaten favorilere eklendi"})
+        else:
+            return super().create(validated_data)
+

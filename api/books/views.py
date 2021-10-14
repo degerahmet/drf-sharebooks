@@ -25,7 +25,6 @@ class BookListAPIView(ListAPIView):
     search_fields =['name']
 
     filter_backends = [SearchFilter]
-    filterset_fields = ['category','writer','publisher']
     queryset = Book.objects.all()
 
 

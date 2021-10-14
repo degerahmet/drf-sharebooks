@@ -4,6 +4,9 @@ from core.models import Book
 from api.comments.serializers import CommentSerializer
 
 class BookSerializer(serializers.ModelSerializer):
+    writer = serializers.SerializerMethodField()
+    publisher = serializers.SerializerMethodField()
+    category = serializers.SerializerMethodField()
     class Meta:
         model = Book
         fields = (
@@ -20,9 +23,21 @@ class BookSerializer(serializers.ModelSerializer):
             'rating',
             )
         extra_kwargs = {'author': {'read_only': True}}
+    
+    def get_writer(self,obj):
+        return obj.writer.name
+    
+    def get_publisher(self,obj):
+        return obj.publisher.title
+    
+    def get_category(self,obj):
+        return obj.category.title
 
 class BookDetailSerializer(serializers.ModelSerializer):
     comments = CommentSerializer(many=True)
+    writer = serializers.SerializerMethodField()
+    publisher = serializers.SerializerMethodField()
+    category = serializers.SerializerMethodField()
     class Meta:
         model = Book
         fields = (
@@ -39,3 +54,11 @@ class BookDetailSerializer(serializers.ModelSerializer):
             'comments',
             )
         extra_kwargs = {'author': {'read_only': True}}
+    def get_writer(self,obj):
+        return obj.writer.name
+    
+    def get_publisher(self,obj):
+        return obj.publisher.title
+    
+    def get_category(self,obj):
+        return obj.category.title
