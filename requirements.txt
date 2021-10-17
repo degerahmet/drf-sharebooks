@@ -2,3 +2,4 @@ django
 djangorestframework-simplejwt
 PyJWT==2.1.0
 Pillow
+drf-yasg

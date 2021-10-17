@@ -4,14 +4,16 @@ from rest_framework.permissions import IsAuthenticated,AllowAny
 # from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
 
-from .serializers import BookSerializer,BookDetailSerializer
+from .serializers import BookSerializer,BookDetailSerializer,BookCreateSerializer
 from core.models import Book
 from api.permissions import IsContentAuthor
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 
 class BookCreateAPIView(CreateAPIView):
     permission_classes = [IsAuthenticated]
-    serializer_class = BookSerializer
+    serializer_class = BookCreateSerializer
+    authentication_classes = [JWTAuthentication]
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
@@ -30,7 +32,7 @@ class BookListAPIView(ListAPIView):
 
 
 class BookUpdateAPIView(RetrieveUpdateAPIView):
-    serializer_class = BookSerializer
+    serializer_class = BookCreateSerializer
     queryset = Book.objects.all()
     permission_classes = [IsContentAuthor]
 

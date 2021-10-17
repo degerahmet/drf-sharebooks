@@ -15,6 +15,7 @@ class BookSerializer(serializers.ModelSerializer):
             'name',
             'writer',
             'get_image',
+            'image',
             'place_of_publication',
             'date_of_publication',
             'publisher',
@@ -22,7 +23,8 @@ class BookSerializer(serializers.ModelSerializer):
             'summary',
             'rating',
             )
-        extra_kwargs = {'author': {'read_only': True}}
+        extra_kwargs = {'author': {'read_only': True},
+        'get_image': {'read_only': True}}
     
     def get_writer(self,obj):
         return obj.writer.name
@@ -32,6 +34,25 @@ class BookSerializer(serializers.ModelSerializer):
     
     def get_category(self,obj):
         return obj.category.title
+
+class BookCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Book
+        fields = (
+            'id',
+            'author',
+            'name',
+            'writer',
+            'image',
+            'place_of_publication',
+            'date_of_publication',
+            'publisher',
+            'category',
+            'summary',
+            'rating',
+            )
+        extra_kwargs = {'author': {'read_only': True}}
+    
 
 class BookDetailSerializer(serializers.ModelSerializer):
     comments = CommentSerializer(many=True)
@@ -45,6 +66,7 @@ class BookDetailSerializer(serializers.ModelSerializer):
             'author',
             'name',
             'writer',
+            'get_image',
             'place_of_publication',
             'date_of_publication',
             'publisher',
